@@ -40,11 +40,15 @@ def validar_formulario(form):
         errores['edad'] = 'La edad debe ser un número entero'
 
     # Validación de la raza
-
+    if not form.raza.data or len(form.raza.data.strip()) == 0:
+        errores['raza'] = 'La raza es obligatoria'
+    elif len(form.raza.data) < 2 or len(form.raza.data) > 50:
+        errores['raza'] = 'La raza debe tener entre 2 y 50 caracteres'
+    
     if not form.genero.data or form.genero.data == '':
-            errores['genero'] = 'Debe seleccionar un género'
-        elif form.genero.data not in ['hembra', 'macho']:
-            errores['genero'] = 'Género no válido'
+        errores['genero'] = 'Debe seleccionar un género'
+    elif form.genero.data not in ['hembra', 'macho']:
+        errores['genero'] = 'Género no válido'
 
     # Validación de la ciudad
 
