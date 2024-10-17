@@ -32,6 +32,13 @@ def validar_formulario(form):
 
     # Validación de la edad
 
+    try:
+        edad = int(form.edad.data)
+        if edad < 0 or edad > 30:
+            errores['edad'] = 'La edad debe estar entre 0 y 30 años'
+    except ValueError:
+        errores['edad'] = 'La edad debe ser un número entero'
+
     # Validación de la raza
 
     if not form.genero.data or form.genero.data == '':
