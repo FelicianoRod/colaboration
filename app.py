@@ -34,7 +34,10 @@ def validar_formulario(form):
 
     # Validación de la raza
 
-    # Validación del género
+    if not form.genero.data or form.genero.data == '':
+            errores['genero'] = 'Debe seleccionar un género'
+        elif form.genero.data not in ['hembra', 'macho']:
+            errores['genero'] = 'Género no válido'
 
     # Validación de la ciudad
 
