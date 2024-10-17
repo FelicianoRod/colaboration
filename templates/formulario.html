@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Mascota</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        .success {
+            color: green;
+            background-color: #e8f5e9;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Registro de Mascota</h2>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.nombre.label }}
+            {{ form.nombre(novalidate=True) }}
+            {% if errores.get('nombre') %}
+                <div class="error">{{ errores['nombre'] }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.edad.label }}
+            {{ form.edad(novalidate=True) }}
+            {% if errores.get('edad') %}
+                <div class="error">{{ errores['edad'] }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.raza.label }}
+            {{ form.raza(novalidate=True) }}
+            {% if errores.get('raza') %}
+                <div class="error">{{ errores['raza'] }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.genero.label }}
+            {{ form.genero(novalidate=True) }}
+            {% if errores.get('genero') %}
+                <div class="error">{{ errores['genero'] }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.ciudad.label }}
+            {{ form.ciudad(novalidate=True) }}
+            {% if errores.get('ciudad') %}
+                <div class="error">{{ errores['ciudad'] }}</div>
+            {% endif %}
+        </div>
+
+        {{ form.submit }}
+    </form>
+</body>
+</html>
