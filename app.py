@@ -23,6 +23,12 @@ def validar_formulario(form):
 
     # ----------------- AQUÍ VALIDACIONES ------------------
     # Validación del nombre
+    if not form.nombre.data or len(form.nombre.data.strip()) == 0:
+        errores['nombre'] = 'El nombre es obligatorio'
+    elif not form.nombre.data.replace(' ', '').isalpha():
+        errores['nombre'] = 'El nombre solo puede contener letras'
+    elif len(form.nombre.data) < 2 or len(form.nombre.data) > 50:
+        errores['nombre'] = 'El nombre debe tener entre 2 y 50 caracteres'
 
     # Validación de la edad
 
@@ -31,36 +37,29 @@ def validar_formulario(form):
     # Validación del género
 
     # Validación de la ciudad
+
     if not form.ciudad.data or len(form.ciudad.data.strip()) == 0:
         errores['ciudad'] = 'La ciudad es obligatoria'
     elif not form.ciudad.data.replace(' ', '').isalpha():
         errores['ciudad'] = 'La ciudad solo puede contener letras'
     elif len(form.ciudad.data) < 2 or len(form.ciudad.data) > 50:
         errores['ciudad'] = 'La ciudad debe tener entre 2 y 50 caracteres'
-
     # ------------------------------------------------------
-    
-
-
-
-
-
-
     return errores
 
 @app.route('/', methods=['GET', 'POST'])
 def registro_mascota():
     form = MascotaForm()
     errores = {}
-    
+
     if request.method == 'POST':
         errores = validar_formulario(form)
-        
+
         if not errores:
             # Aquí procesarías los datos del formulario
             flash('Mascota registrada exitosamente!', 'success')
             return redirect(url_for('registro_mascota'))
-            
+
     return render_template('formulario.html', form=form, errores=errores)
 
 if __name__ == '__main__':
