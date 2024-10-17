@@ -38,6 +38,12 @@ def validar_formulario(form):
 
     # Validación de la ciudad
 
+    if not form.ciudad.data or len(form.ciudad.data.strip()) == 0:
+        errores['ciudad'] = 'La ciudad es obligatoria'
+    elif not form.ciudad.data.replace(' ', '').isalpha():
+        errores['ciudad'] = 'La ciudad solo puede contener letras'
+    elif len(form.ciudad.data) < 2 or len(form.ciudad.data) > 50:
+        errores['ciudad'] = 'La ciudad debe tener entre 2 y 50 caracteres'
     # ------------------------------------------------------
     return errores
 
